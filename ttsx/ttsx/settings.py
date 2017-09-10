@@ -94,7 +94,7 @@ TIME_ZONE = 'Asia/Shanghai'  # 'UTC'
 USE_I18N = True
 
 USE_L10N = True
-git
+
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
