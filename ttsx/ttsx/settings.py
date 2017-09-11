@@ -40,7 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'tt_goods',
     'tinymce',
-    'tt_order'
+    'tt_order',
     'tt_user',
 )
 MIDDLEWARE_CLASSES = (
