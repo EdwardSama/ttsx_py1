@@ -49,6 +49,7 @@ $(function(){
 		else
 		{
 
+
 			$('#user_name').next().hide();
 			error_name = false;
 
@@ -118,7 +119,7 @@ $(function(){
 	}
 
 
-	$('#reg_form').submit(function() {
+	$('.reg_form').submit(function() {
 		check_user_name();
 		check_pwd();
 		check_cpwd();

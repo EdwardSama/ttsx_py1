@@ -40,9 +40,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'tt_goods',
     'tinymce',
+    'tt_order'
     'tt_user',
 )
-
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
