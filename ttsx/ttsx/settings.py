@@ -29,6 +29,8 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+APPEND_SLASH=True
+
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -36,9 +38,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ttsx_user',
     'tt_goods',
     'tinymce',
+    'tt_user',
 )
 
 MIDDLEWARE_CLASSES = (
