@@ -7,9 +7,8 @@ class MyMidware(object):
                                 '/user/login/',
                                 '/user/login_handle/',
                                 '/user/logout/',
-                                '/user/register_exist/', ]:
+                                '/user/register_exist/',
+                                '/user/order/','/user/info/','/user/site/',]:
             request.session['url_path'] = request.get_full_path()
-
-
 
 
