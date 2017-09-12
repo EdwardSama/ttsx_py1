@@ -14,13 +14,18 @@ def register(request):
 
 def register_handle(request):
     dict = request.POST
+    uname=dict.get('user_name','')
+    upwd = dict.get('pwd','')
+    cpwd = dict.get('cpwd','')
+    uemail = dict.get('email','')
+    e_uemail = re.compile('^[a-z0-9][\w\.\-]*@[a-z0-9\-]+(\.[a-z]{2,5}){1,2}$')
+    e_flag=e_uemail.match(uemail)
+    n_uname=re.compile('^[a-z0-9_][\w]{4,19}$')
+    n_flag = n_uname.match(uname)
+    p_upwd = re.compile('^[a-z0-9][\w]{7,19}$')
+    p_flag = p_upwd.match(upwd)
 
-    uname=dict.get('user_name')
-    upwd = dict.get('pwd')
-    cpwd = dict.get('cpwd')
-    uemail = dict.get('email')
-
-    if len(uname)>5 and len(uname)<20 and len(upwd)>8 and len(upwd)<20:
+    if e_flag and n_flag and p_flag :
 
         if cpwd!=upwd:
             redirect('/user/register/')
@@ -99,7 +104,6 @@ def info(request):
 def order(request):
 
     return render(request, 'tt_user/user_center_order.html')
-
 
 
 @islogin
