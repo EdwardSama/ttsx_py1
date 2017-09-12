@@ -68,7 +68,7 @@ def login_handle(request):
     if len(user_info)==1:
         if user_info[0].isActive==False:
             if user_info[0].upwd == upwd :
-                res = HttpResponseRedirect('/')
+                res = HttpResponseRedirect(url)
                 if check!=0:
                     res.set_cookie('uname',uname)
                 else:
