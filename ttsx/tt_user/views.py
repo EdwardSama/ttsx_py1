@@ -4,6 +4,7 @@ from .models import *
 import re
 import hashlib
 from .decorater import islogin
+from . import task
 
 # Create your views here.
 
@@ -25,10 +26,7 @@ def register_handle(request):
     p_upwd = re.compile('^[a-z0-9][\w]{7,19}$')
     p_flag = p_upwd.match(upwd)
 
-    if e_flag and n_flag and p_flag :
-
-        if cpwd!=upwd:
-            redirect('/user/register/')
+    if e_flag and n_flag and p_flag  and cpwd==upwd:
 
         sha1 = hashlib.sha1()
         upwd = upwd.encode('utf-8')
@@ -36,8 +34,9 @@ def register_handle(request):
         upwd = sha1.hexdigest()
         user = UserInfo.adduser.create(uname,upwd,uemail)
         user.save()
+        task.sendmail.delay(uemail,uname)
 
-        return redirect('/user/login/')
+        return render(request,'tt_user/active.html')
     else:
         return redirect('/user/register/')
 
@@ -63,10 +62,10 @@ def login_handle(request):
 
     user_info = UserInfo.adduser.filter(uname=uname)
     url = request.session.get('url_path','/')
-
     print(url)
+
     if len(user_info)==1:
-        if user_info[0].isActive==False:
+        if user_info[0].isActive==True:
             if user_info[0].upwd == upwd :
                 res = HttpResponseRedirect(url)
                 if check!=0:
@@ -77,10 +76,13 @@ def login_handle(request):
                 request.session['uname']=uname
                 return res
             else:
-                context={'title':'用户登录','error_name':0,'error_pwd':1,'uname':uname,'upwd':upwd}
+                context={'title':'用户登录','error_name':0,'error_pwd':1,'uname':uname,'upwd':upwd,'active':1}
                 return render(request,'tt_user/login.html',context)
+        else:
+            context = {'title': '用户登录', 'error_name': 0, 'error_pwd': 1, 'uname': uname, 'upwd': upwd, 'active':0}
+            return render(request, 'tt_user/login.html', context)
     else:
-        context={'title':'用户登录','error_name':1,'error_pwd':0,'uname':uname,'upwd':upwd}
+        context={'title':'用户登录','error_name':1,'error_pwd':0,'uname':uname,'upwd':upwd,'active':1}
         return render(request, 'tt_user/login.html', context)
 
 
@@ -138,17 +140,25 @@ def site(request):
             return render(request, 'tt_user/user_center_site.html', context)
 
 
-
 def login_out(request):
     request.session.flush()
     return redirect('/user/login/')
-
 
 
 def register_exist(request):
     uname = request.GET.get('uname')
     count = UserInfo.adduser.filter(uname=uname).count()
     return JsonResponse({'count':count})
+
+
+def active(request):
+    uname=request.GET.get('uname','')
+    if uname != '':
+        user=UserInfo.adduser.get(uname=uname)
+        user.isActive=True
+        user.save()
+        return redirect('/user/login/')
+
 
 
 

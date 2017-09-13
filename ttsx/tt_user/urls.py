@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^order/$',views.order),
     url(r'^site/$',views.site),
     url(r'^logout/$',views.login_out),
+    url(r'^active/$',views.active),
     ]

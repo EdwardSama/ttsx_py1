@@ -24,6 +24,9 @@
 
             }
         });
+         if({{ active }} == 0 ){
+            $('.user_error').html('帐号未激活').show()
+        }
         $('.pass_input').blur(function () {
             if($(this).val().length==0){
                 $('.pwd_error').html('请输入密码').show();
