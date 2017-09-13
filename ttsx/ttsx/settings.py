@@ -38,8 +38,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tt_goods',
-    'tinymce',
     'tt_user',
     'tt_goods',
     'tinymce',
@@ -117,22 +115,10 @@ STATICFILES_DIRS = [
 # Media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 
-<<<<<<< HEAD
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'static')
-]
-MEDIA_ROOT = os.path.join(BASE_DIR,'static')
-
-
-=======
->>>>>>> cc276266a0528abde2ba50f9af0ce6c2a8099869
 TINYMCE_DEFAULT_CONFIG = {
     'theme': 'advanced',
     'width': 600,
     'height': 400,
-<<<<<<< HEAD
-}
-=======
 }
 
 
@@ -162,4 +148,3 @@ EMAIL_HOST_USER = 'itcast88@163.com'
 EMAIL_HOST_PASSWORD = 'python808'
 #收件人看到的发件人
 EMAIL_FROM = 'python<itcast88@163.com>'
->>>>>>> cc276266a0528abde2ba50f9af0ce6c2a8099869

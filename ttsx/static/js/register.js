@@ -48,10 +48,6 @@ $(function(){
 		}
 		else
 		{
-
-			$('#user_name').next().hide();
-			error_name = false;
-
 			$.get('/user/register_exist/?uname='+$('#user_name').val(),function (data) {
 				if(data.count ==1){
 					$('#user_name').next().html('用户名已经存在').show();
@@ -62,7 +58,6 @@ $(function(){
 				}
 
             })
-
 		}
 	}
 
@@ -134,9 +129,6 @@ $(function(){
 		}
 
 	});
-<<<<<<< HEAD
-=======
 
 
->>>>>>> cc276266a0528abde2ba50f9af0ce6c2a8099869
 })
