@@ -1,0 +1,102 @@
+{% extends 'goods_base.html' %}
+{% block body %}
+
+	<div class="navbar_con">
+		<div class="navbar clearfix">
+			<div class="subnav_con fl">
+				<h1>全部商品分类</h1>	
+				<span></span>			
+				<ul class="subnav">
+					<li><a href="/list/1/1/1/" class="fruit">新鲜水果</a></li>
+					<li><a href="/list/2/1/1/" class="seafood">海鲜水产</a></li>
+					<li><a href="/list/3/1/1/" class="meet">猪牛羊肉</a></li>
+					<li><a href="/list/4/1/1/" class="egg">禽类蛋品</a></li>
+					<li><a href="/list/5/1/1/" class="vegetables">新鲜蔬菜</a></li>
+					<li><a href="/list/6/1/1/" class="ice">速冻食品</a></li>
+				</ul>
+			</div>
+			<ul class="navlist fl">
+				<li><a href="/">首页</a></li>
+				<li class="interval">|</li>
+				<li><a href="">手机生鲜</a></li>
+				<li class="interval">|</li>
+				<li><a href="">抽奖</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="breadcrumb">
+		<a href="#">全部分类</a>
+		<span>></span>
+		<a href="/list/{{ sort }}/1/1/">{{ fenlei.ttitle }}</a>
+	</div>
+
+	<div class="main_wrap clearfix">
+		<div class="l_wrap fl clearfix">
+			<div class="new_goods">
+				<h3>新品推荐</h3>
+				<ul>
+                    {% for tuijian in tuijian %}
+					<li>
+						<a href="/detail/{{ tuijian.gtype_id }}/{{ tuijian.id }}/"><img src="/static/media/{{ tuijian.gpic }}"></a>
+						<h4><a href="#">{{ tuijian.gtitle }}</a></h4>
+						<div class="prize">￥{{ tuijian.gprice }}</div>
+					</li>
+                    {% endfor %}
+
+				</ul>
+			</div>
+		</div>
+
+		<div class="r_wrap fr clearfix">
+			<div class="sort_bar">
+                {% if style == '1'%}
+				<a href="/list/{{ sort }}/{{ 1 }}/{{ pindex }}/" class="active">默认</a>
+				<a href="/list/{{ sort }}/{{ 2 }}/{{ pindex }}/">价格</a>
+				<a href="/list/{{ sort }}/{{ 3 }}/{{ pindex }}/">人气</a>
+                {% endif %}
+                {% if style == '2'%}
+				<a href="/list/{{ sort }}/{{ 1 }}/{{ pindex }}/" >默认</a>
+				<a href="/list/{{ sort }}/{{ 2 }}/{{ pindex }}/" class="active">价格</a>
+				<a href="/list/{{ sort }}/{{ 3 }}/{{ pindex }}/">人气</a>
+                {% endif %}
+                {% if style == '3'%}
+				<a href="/list/{{ sort }}/{{ 1 }}/{{ pindex }}/" >默认</a>
+				<a href="/list/{{ sort }}/{{ 2 }}/{{ pindex }}/">价格</a>
+				<a href="/list/{{ sort }}/{{ 3 }}/{{ pindex }}/" class="active">人气</a>
+                {% endif %}
+			</div>
+
+			<ul class="goods_type_list clearfix">
+                {% for p in list %}
+				<li>
+					<a href="/detail/{{ p.gtype_id }}/{{ p.id }}/"><img src="/static/media/{{ p.gpic }}"></a>
+					<h4><a href="detail.html">{{ p.gtitle }}</a></h4>
+					<div class="operate">
+						<span class="prize">￥{{ p.gprice }}</span>
+						<span class="unit">{{ p.gprice }}/{{ p.gunit }}</span>
+						<a href="#" class="add_goods" title="加入购物车"></a>
+					</div>
+				</li>
+                {% endfor %}
+            </ul>
+
+			<div class="pagenation">
+                {% if list.has_previous %}
+				<a href="/list/{{ sort }}/{{ style }}/{{ pindex|add:'-1' }}/">上一页</a>
+                {% else %}
+                <a>上一页</a>
+                {% endif %}
+                {% for index  in list.paginator.page_range %}
+				<a href="/list/{{ sort }}/{{ style }}/{{ index }}/" class="active">{{ index }}</a>
+                {% endfor %}
+                {% if list.has_next %}
+				<a href="/list/{{ sort }}/{{ style }}/{{ pindex|add:'1' }}/">下一页</a>
+                {% else %}
+                <a>下一页</a>
+                {% endif %}
+
+			</div>
+		</div>
+	</div>
+    {% endblock body %}
