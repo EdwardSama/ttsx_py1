@@ -44,6 +44,7 @@ def list(request,sort,style,pindex):
 
 
 def detail(request,id1,id2):
+    
     type = TypeInfo.objects.filter(id=id1)
     good = GoodsInfo.objects.filter(id=id2)
     tuijian = GoodsInfo.objects.filter(gtype_id=id1).order_by('-id')[0:2]
