@@ -5,40 +5,18 @@
 	<title>天天生鲜-商品详情</title>
 	<link rel="stylesheet" type="text/css" href="/static/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
-    <script type="text/javascript" src="/static/js/jquery-1.12.2.js"></script>
-{#	<script type="text/javascript">#}
-{#		var $add_x = $('#add_cart').offset().top;#}
-{#		var $add_y = $('#add_cart').offset().left;#}
-{##}
-{#		var $to_x = $('#show_count').offset().top;#}
-{#		var $to_y = $('#show_count').offset().left;#}
-{##}
-{#		$(".add_jump").css({'left':$add_y+80,'top':$add_x+10,'display':'block'})#}
-{#		$('#add_cart').click(function(){#}
-{#			$(".add_jump").stop().animate({#}
-{#				'left': $to_y+7,#}
-{#				'top': $to_x+7},#}
-{#				"fast", function() {#}
-{#					$(".add_jump").fadeOut('fast',function(){#}
-{#						$('#show_count').html(2);#}
-{#					});#}
-{#			});#}
-{#		})#}
-{#	</script>#}
-
-
-
+    <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
     <script>
     $(function () {
         $('.num_show').blur(function () {
-            var num=parseInt($(this).val());//NaN
+            var num=parseInt($(this).val());
             if(isNaN(num)){
                 num=1;
             }
             if(num <= 0){
                 num=1;
             }
-            var kucun=parseInt($('#kucun').val());
+            var kucun=parseInt($('.show_kucun').val());
             if(num>=kucun){
                 num=kucun;
             }
@@ -88,12 +66,6 @@
         });
     });
     </script>
-
-
-
-
-
-
 
 </head>
 <body>
@@ -174,6 +146,8 @@
 			<div class="prize_bar">
 				<span class="show_pirze">¥<em>{{ goods.gprice }}</em></span>
 				<span class="show_unit">单  位：{{ goods.gunit }}</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="show_kucun">库  存：{{ goods.gkucun }}</span>
 			</div>
 			<div class="goods_num clearfix">
 				<div class="num_name fl">数 量：</div>
