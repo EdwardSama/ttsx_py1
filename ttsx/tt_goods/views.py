@@ -9,9 +9,9 @@ def list(request, tid, pindex, sort):
     typeinfo = TypeInfo.objects.get(pk=tid)
     news = typeinfo.goodsinfo_set.order_by('-id')[0:2]
 
-    if sort == 1:
+    if int(sort) == 1:
         goods_list = GoodsInfo.objects.filter(gtype_id=tid).order_by('-id')
-    elif sort == 2:
+    elif int(sort) == 2:
         goods_list = GoodsInfo.objects.filter(gtype_id=tid).order_by('-gprice')
     else:
         goods_list = GoodsInfo.objects.filter(gtype_id=tid).order_by('-gclick')
@@ -32,7 +32,15 @@ def list(request, tid, pindex, sort):
 
 
 def detail(request, id):
-    return render(request, 'ttsx_goods/detail.html')
+    goods = GoodsInfo.objects.get(pk=id)
+    goods.gclick += 1
+    goods.save()
+    news = goods.gtype.goodsinfo_set.order_by('-id')[0:2]
+    context = {
+        'title':goods.gtype.ttitle,'goods':goods,
+        'news':news,'id':id
+    }
+    return render(request, 'ttsx_goods/detail.html',context)
 
 
 def index(request):
