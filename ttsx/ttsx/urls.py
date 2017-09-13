@@ -22,4 +22,7 @@ urlpatterns = [
     url(r'', include('tt_goods.urls')),
     url(r'^tinymce/', include('tinymce.urls')),
     url(r'^user/',include('tt_user.urls')),
+    url(r'^',include('tt_goods.urls')),
+    url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^search/', include('haystack.urls')),
 ]

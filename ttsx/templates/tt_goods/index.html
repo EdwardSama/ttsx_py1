@@ -1,0 +1,205 @@
+{% extends 'goods_base.html' %}
+{% block body %}
+
+	<div class="navbar_con">
+		<div class="navbar">
+			<h1 class="fl">全部商品分类</h1>
+			<ul class="navlist fl">
+				<li><a href="">首页</a></li>
+				<li class="interval">|</li>
+				<li><a href="">手机生鲜</a></li>
+				<li class="interval">|</li>
+				<li><a href="">抽奖</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="center_con clearfix">
+		<ul class="subnav fl">
+			<li><a href="/list/1/1/1/" class="fruit">新鲜水果</a></li>
+			<li><a href="/list/2/1/1/" class="seafood">海鲜水产</a></li>
+			<li><a href="/list/3/1/1/" class="meet">猪牛羊肉</a></li>
+			<li><a href="/list/4/1/1/" class="egg">禽类蛋品</a></li>
+			<li><a href="/list/5/1/1/" class="vegetables">新鲜蔬菜</a></li>
+			<li><a href="/list/6/1/1/" class="ice">速冻食品</a></li>
+		</ul>
+		<div class="slide fl">
+			<ul class="slide_pics">
+				<li><img src="/static/images/slide.jpg" alt="幻灯片"></li>
+				<li><img src="/static/images/slide02.jpg" alt="幻灯片"></li>
+				<li><img src="/static/images/slide03.jpg" alt="幻灯片"></li>
+				<li><img src="/static/images/slide04.jpg" alt="幻灯片"></li>
+			</ul>
+			<div class="prev"></div>
+			<div class="next"></div>
+			<ul class="points"></ul>
+		</div>
+		<div class="adv fl">
+			<a href="#"><img src="/static/images/adv01.jpg"></a>
+			<a href="#"><img src="/static/images/adv02.jpg"></a>
+		</div>
+	</div>
+
+	<div class="list_model">
+		<div class="list_title clearfix">
+			<h3 class="fl" id="model01">新鲜水果</h3>
+			<div class="subtitle fl">
+				<span>|</span>
+            {% load tags %}
+                {% for ty1 in type11 %}
+				<a href="/detail/{{ ty1.gtype_id }}/{{ ty1.id }}/">{{ ty1.gtitle|slice:'6' }}...</a>
+                {% endfor %}
+			</div>
+			<a href="/list/1/1/1/" class="goods_more fr" id="fruit_more">查看更多 ></a>
+		</div>
+
+		<div class="goods_con clearfix">
+			<div class="goods_banner fl"><img src="/static/images/banner01.jpg"></div>
+			<ul class="goods_list fl">
+                {% for ty1 in type1 %}
+				<li>
+					<h4><a href="/detail/{{ ty1.gtype_id }}/{{ ty1.id }}/">{{ ty1.gtitle }}</a></h4>
+					<a href="/detail/{{ ty1.gtype_id }}/{{ ty1.id }}/"><img src="/static/media/{{ ty1.gpic }}"></a>
+					<div class="prize">¥ {{ ty1.gprice }}</div>
+				</li>
+                {% endfor %}
+
+			</ul>
+		</div>
+	</div>
+
+	<div class="list_model">
+		<div class="list_title clearfix">
+			<h3 class="fl" id="model02">海鲜水产</h3>
+			<div class="subtitle fl">
+				<span>|</span>
+				{% load tags %}
+                {% for ty2 in type22 %}
+				<a href="/detail/{{ ty2.gtype_id }}/{{ ty2.id }}/">{{ ty2.gtitle |slice:'6' }}...</a>
+                {% endfor %}
+			</div>
+			<a href="/list/2/1/1/" class="goods_more fr">查看更多 ></a>
+		</div>
+
+		<div class="goods_con clearfix">
+			<div class="goods_banner fl"><img src="/static/images/banner02.jpg"></div>
+			<ul class="goods_list fl">
+				{% for ty2 in type2 %}
+				<li>
+					<h4><a href="/detail/{{ ty2.gtype_id }}/{{ ty2.id }}/">{{ ty2.gtitle }}</a></h4>
+					<a href="/detail/{{ ty2.gtype_id }}/{{ ty2.id }}/"><img src="/static/media/{{ ty2.gpic }}"></a>
+					<div class="prize">¥ {{ ty2.gprice }}</div>
+				</li>
+                {% endfor %}
+			</ul>
+		</div>
+	</div>
+
+	<div class="list_model">
+		<div class="list_title clearfix">
+			<h3 class="fl" id="model03">猪牛羊肉</h3>
+			<div class="subtitle fl">
+				<span>|</span>
+			{% load tags %}
+                {% for ty3 in type33 %}
+				<a href="/detail/{{ ty3.gtype_id }}/{{ ty3.id }}/">{{ ty3.gtitle |slice:'6' }}...</a>
+                {% endfor %}
+			</div>
+			<a href="/list/3/1/1/" class="goods_more fr">查看更多 ></a>
+		</div>
+
+		<div class="goods_con clearfix">
+			<div class="goods_banner fl"><img src="/static/images/banner03.jpg"></div>
+			<ul class="goods_list fl">
+				{% for ty3 in type3 %}
+				<li>
+					<h4><a href="/detail/{{ ty3.gtype_id }}/{{ ty3.id }}/">{{ ty3.gtitle }}</a></h4>
+					<a href="/detail/{{ ty3.gtype_id }}/{{ ty3.id }}/"><img src="/static/media/{{ ty3.gpic }}"></a>
+					<div class="prize">¥ {{ ty3.gprice }}</div>
+				</li>
+                {% endfor %}
+			</ul>
+		</div>
+	</div>
+
+	<div class="list_model">
+		<div class="list_title clearfix">
+			<h3 class="fl" id="model04">禽类蛋品</h3>
+			<div class="subtitle fl">
+				<span>|</span>
+                {% for ty4 in type44 %}
+				<a href="/detail/{{ ty4.gtype_id }}/{{ ty4.id }}/">{{ ty4.gtitle|slice:'6'}}...</a>
+                {% endfor %}
+			</div>
+			<a href="/list/4/1/1/" class="goods_more fr">查看更多 ></a>
+		</div>
+
+		<div class="goods_con clearfix">
+			<div class="goods_banner fl"><img src="/static/images/banner04.jpg"></div>
+			<ul class="goods_list fl">
+				{% for ty4 in type4 %}
+				<li>
+					<h4><a href="/detail/{{ ty4.gtype_id }}/{{ ty4.id }}/">{{ ty4.gtitle}}</a></h4>
+					<a href="/detail/{{ ty4.gtype_id }}/{{ ty4.id }}/"><img src="/static/media/{{ ty4.gpic }}"></a>
+					<div class="prize">¥ {{ ty4.gprice }}</div>
+				</li>
+                {% endfor %}
+			</ul>
+		</div>
+	</div>
+
+	<div class="list_model">
+		<div class="list_title clearfix">
+			<h3 class="fl" id="model05">新鲜蔬菜</h3>
+			<div class="subtitle fl">
+				<span>|</span>
+				{% load tags %}
+                {% for ty5 in type55 %}
+				<a href="/detail/{{ ty5.gtype_id }}/{{ ty5.id }}/">{{ ty5.gtitle |slice:'6' }}...</a>
+                {% endfor %}
+			</div>
+			<a href="/list/5/1/1/" class="goods_more fr">查看更多 ></a>
+		</div>
+
+		<div class="goods_con clearfix">
+			<div class="goods_banner fl"><img src="/static/images/banner05.jpg"></div>
+			<ul class="goods_list fl">
+				{% for ty5 in type5 %}
+				<li>
+					<h4><a href="/detail/{{ ty5.gtype_id }}/{{ ty5.id }}/">{{ ty5.gtitle }}</a></h4>
+					<a href="/detail/{{ ty5.gtype_id }}/{{ ty5.id }}/"><img src="/static/media/{{ ty5.gpic }}"></a>
+					<div class="prize">¥ {{ ty5.gprice }}</div>
+				</li>
+                {% endfor %}
+			</ul>
+		</div>
+	</div>
+
+	<div class="list_model">
+		<div class="list_title clearfix">
+			<h3 class="fl" id="model06">速冻食品</h3>
+			<div class="subtitle fl">
+				<span>|</span>
+				{% load tags %}
+                {% for ty6 in type66 %}
+				<a href="/detail/{{ ty6.gtype_id }}/{{ ty6.id }}/">{{ ty6.gtitle |slice:'6' }}...</a>
+                {% endfor %}
+			</div>
+			<a href="/list/6/1/1/" class="goods_more fr">查看更多 ></a>
+		</div>
+
+		<div class="goods_con clearfix">
+			<div class="goods_banner fl"><img src="/static/images/banner06.jpg"></div>
+			<ul class="goods_list fl">
+				{% for ty6 in type6 %}
+				<li>
+					<h4><a href="/detail/{{ ty6.gtype_id }}/{{ ty6.id }}/">{{ ty6.gtitle }}</a></h4>
+					<a href="/detail/{{ ty6.gtype_id }}/{{ ty6.id }}/"><img src="/static/media/{{ ty6.gpic }}"></a>
+					<div class="prize">¥ {{ ty6.gprice }}</div>
+				</li>
+                {% endfor %}
+			</ul>
+		</div>
+	</div>
+
+	{% endblock body %}

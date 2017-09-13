@@ -118,7 +118,7 @@ $(function(){
 	}
 
 
-	$('#reg_form').submit(function() {
+	$('.reg_form').submit(function() {
 		check_user_name();
 		check_pwd();
 		check_cpwd();
@@ -134,4 +134,9 @@ $(function(){
 		}
 
 	});
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> cc276266a0528abde2ba50f9af0ce6c2a8099869
 })
