@@ -62,7 +62,6 @@ def login_handle(request):
 
     user_info = UserInfo.adduser.filter(uname=uname)
     url = request.session.get('url_path','/')
-    print(url)
 
     if len(user_info)==1:
         if user_info[0].isActive==True:

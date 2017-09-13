@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'haystack',
     'djcelery',
 )
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
