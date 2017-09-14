@@ -58,34 +58,74 @@ def list(request, sort, style, pindex):
     return render(request, 'tt_goods/list.html', context)
 
 
+# def detail(request, id1, id2):
+#     goods = GoodsInfo.objects.get(pk=id2)
+#     goods.gclick += 1
+#     goods.save()
+#
+#     type = TypeInfo.objects.filter(id=id1)
+#     good = GoodsInfo.objects.filter(id=id2)
+#     tuijian = GoodsInfo.objects.filter(gtype_id=id1).order_by('-id')[0:2]
+#     context = {'good': good[0],
+#                'type': type[0],
+#                'tuijian': tuijian}
+#     response = render(request, 'tt_goods/detail.html', context)
+#
+#     # 最近浏览
+#     goods_ids = request.COOKIES.get('goods_ids', '')
+#     goods_id = str(id2)
+#
+#     if goods_ids != '':
+#         goods_ids1 = goods_ids.split(',')
+#         if goods_ids1.count(goods_id) >= 1:
+#             goods_ids1.remove(goods_id)
+#         goods_ids1.insert(0, goods_id)
+#         if len(goods_ids1) >= 6:
+#             goods_ids1.pop()
+#         goods_ids = ','.join(goods_ids1)
+#         response.set_cookie('goods_ids', goods_ids)
+#
+#         return response
+#     else:
+#         response.set_cookie('goods_ids', goods_id)
+#         return response
+
+
+
 def detail(request, id1, id2):
-    goods = GoodsInfo.objects.get(pk=id2)
-    goods.gclick += 1
+    goods = GoodsInfo.objects.get(id=id2)
+    goods.gclick = goods.gclick+1
     goods.save()
 
     type = TypeInfo.objects.filter(id=id1)
     good = GoodsInfo.objects.filter(id=id2)
     tuijian = GoodsInfo.objects.filter(gtype_id=id1).order_by('-id')[0:2]
-    context = {'good': good[0],
-               'type': type[0],
-               'tuijian': tuijian}
-    response = render(request, 'tt_goods/detail.html', context)
+    context = {'good': good[0], 'type': type[0], 'tuijian': tuijian}
+    response=render(request, 'tt_goods/detail.html', context)
 
-    # 最近浏览
-    goods_ids = request.COOKIES.get('goods_ids', '')
+    goods_ids = request.COOKIES.get('goods_ids','')
     goods_id = str(id2)
 
-    if goods_ids != '':
-        goods_ids1 = goods_ids.split(',')
-        if goods_ids1.count(goods_id) >= 1:
+    if goods_ids !='':
+        goods_ids1=goods_ids.split(',')
+        if goods_ids1.count(goods_id)>=1:
             goods_ids1.remove(goods_id)
-        goods_ids1.insert(0, goods_id)
-        if len(goods_ids1) >= 6:
-            goods_ids1.pop()
+        goods_ids1.insert(0,goods_id)
+        if len(goods_ids1)>=6:
+            del goods_ids1[5]
         goods_ids = ','.join(goods_ids1)
-        response.set_cookie('goods_ids', goods_ids)
 
+        response.set_cookie('goods_ids',goods_ids)
         return response
     else:
-        response.set_cookie('goods_ids', goods_id)
+        response.set_cookie('goods_ids',goods_id)
         return response
+
+
+from haystack.views import SearchView
+class MySearchView(SearchView):
+    def get_context(self):
+        context = super(MySearchView,self).get_context()
+        context['title'] = '搜索'
+        context['guest_cart'] = 1
+        return context
