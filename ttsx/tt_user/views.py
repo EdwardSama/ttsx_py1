@@ -143,20 +143,37 @@ def site(request):
     user_id = request.session['user_id']
     if request.method == 'POST':
         dict = request.POST
-        name = dict.get('name')
-        addr = dict.get('addr')
-        mail = dict.get('mail')
-        tel = dict.get('tel')
-        user_addr = UserAddressInfo()
-        user_addr.user_id = user_id
-        user_addr.uname = name
-        user_addr.uaddress = addr
-        user_addr.uphone = tel
-        user_addr.save()
-        context = {'name': name, 'addr': addr, 'mail': mail, 'tel': tel}
-        return render(request, 'tt_user/user_center_site.html', context)
+        name = dict.get('name','')
+        addr = dict.get('addr','')
+        mail = dict.get('mail','')
+        tel = dict.get('tel','')
+        if name and addr and mail and tel:
+            user_addr = UserAddressInfo()
+            if UserAddressInfo.objects.filter(user_id=user_id):
+                UserAddressInfo.objects.get(user_id=user_id).delete()
+            user_addr.user_id=user_id
+            user_addr.uname=name
+            user_addr.uaddress=addr
+            user_addr.uphone=tel
+            user_addr.save()
+            context = {'name':name , 'addr':addr ,'mail':mail,'tel':tel}
+            return render(request,'tt_user/user_center_site.html',context)
+        else:
+            user_addr = UserAddressInfo.objects.filter(user_id=user_id)
+            user_info = UserInfo.adduser.filter(id=user_id)
+            try:
+                name = user_addr[0].uname
+                addr = user_addr[0].uaddress
+                mail = user_info[0].uemail
+                tel = user_addr[0].uphone
+                context = {'name': name, 'addr': addr, 'mail': mail, 'tel': tel}
+                return render(request, 'tt_user/user_center_site.html', context)
+            except:
+                context = {'name': '尚未填写', 'addr': '尚未填写', 'mail': '尚未填写', 'tel': '尚未填写'}
+                return render(request, 'tt_user/user_center_site.html', context)
+
     else:
-        user_addr = UserAddressInfo.objects.filter(user_id=user_id)
+        user_addr=UserAddressInfo.objects.filter(user_id=user_id)
         user_info = UserInfo.adduser.filter(id=user_id)
         try:
             name = user_addr[0].uname
@@ -165,12 +182,8 @@ def site(request):
             tel = user_addr[0].uphone
             context = {'name': name, 'addr': addr, 'mail': mail, 'tel': tel}
             return render(request, 'tt_user/user_center_site.html', context)
-        except BaseException:
-            context = {
-                'name': '尚未填写',
-                'addr': '尚未填写',
-                'mail': '尚未填写',
-                'tel': '尚未填写'}
+        except:
+            context = {'name': '尚未填写', 'addr': '尚未填写', 'mail': '尚未填写', 'tel': '尚未填写'}
             return render(request, 'tt_user/user_center_site.html', context)
 
 
