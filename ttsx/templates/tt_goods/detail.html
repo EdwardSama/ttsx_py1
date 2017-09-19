@@ -1,161 +1,153 @@
 {% extends 'goods_base.html' %}
+{% block top %}<title>天天生鲜-商品详情</title>{% endblock top %}
 {% block js %}
+    <link rel="stylesheet" type="text/css" href="/static/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/main.css">
     <script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
-	<script>
-    $(function () {
-        $('.num_show').blur(function () {
-            var num=parseInt($(this).val());
-            if(isNaN(num)){
-                num=1;
-            }
-            if(num <= 0){
-                num=1;
-            }
-            var kucun=parseInt($('.show_kucun').val());
-            if(num>=kucun){
-                num=kucun;
-            }
-            var price=parseFloat($('.show_pirze em').text());
-            var total=num*price;
-            $('.total em').text(total.toFixed(2)+'元');
-            $(this).val(num);
-        });
-        $('.add').click(function () {
-            var num=parseInt($('.num_show').val());
-            num++;
-            $('.num_show').val(num).blur();
-        });
-        $('.minus').click(function () {
-            var num=parseInt($('.num_show').val());
-            num--;
-            $('.num_show').val(num).blur();
-        });
-        $('#add_cart').click(function () {
-            var gid=$('#gid').val();
-            var count=$('.num_show').val();
+    <script type="text/javascript">
 
-            $.get('/user/islogin/',function (data) {
-                if(data.islogin==1){
-                    $.get('/cart/add/',{'gid':gid,'count':count},function (data) {
-                if(data.isok==1){
-                    var $add_x = $('#add_cart').offset().top;
-                    var $add_y = $('#add_cart').offset().left;
+        $(function () {
 
-                    var $to_x = $('#show_count').offset().top;
-                    var $to_y = $('#show_count').offset().left;
-
-                    $(".add_jump").css({'left':$add_y+80,'top':$add_x+10,'display':'block'})
-
-                    $(".add_jump").stop().animate({'left': $to_y+7, 'top': $to_x+7}, "fast", function() {
-                        $(".add_jump").fadeOut('fast');
-                        $('#show_count').text(data.count);
-                    });
+            $('.add').click(function () {
+                var num = parseInt($('.num_show').val());
+                num++;
+                $('.num_show').val(num).blur();
+            });
+            $('.minus').click(function () {
+                var num = parseInt($('.num_show').val());
+                num--;
+                $('.num_show').val(num).blur();
+            });
+            $('.num_show').blur(function () {
+                var num = parseInt($(this).val());
+                //判断值的有效性
+                if (isNaN(num)) {
+                    num = 1;
                 }
-            })
-                }else{
-                    location.href='/user/login/';
+                if (num <= 1) {
+                    num = 1;
                 }
-            })
-        });
-    });
+                if (num >= 100) {
+                    num = 100;
+                }
+                $(this).val(num);
+                //计算总价
+                var price = parseFloat($('.show_pirze em').text());
+                var total = price * num;
+                $('.total em').text(total.toFixed(2) + '元');
+            });
+            $('#add_cart').click(function () {
+                $.get('/cart/add/', {'gid': {{ good.id }}, 'count': $('.num_show').val()}, function (data) {
+                    console.log(data)
+                    if (data.login == 1) {
+                        location.href = '/user/login';
+                    }
+                    if (data.ok == 1) {
+                        $('#show_count').html(data.count);
+                    }
+                });
+            });
+
+
+        })
     </script>
 
 {% endblock js %}
 
 {% block body %}
 
-	<div class="navbar_con">
-		<div class="navbar clearfix">
-			<div class="subnav_con fl">
-				<h1>全部商品分类</h1>	
-				<span></span>			
-				<ul class="subnav">
-					<li><a href="/list/1/1/1/" class="fruit">新鲜水果</a></li>
-					<li><a href="/list/2/1/1/" class="seafood">海鲜水产</a></li>
-					<li><a href="/list/3/1/1/" class="meet">猪牛羊肉</a></li>
-					<li><a href="/list/4/1/1/" class="egg">禽类蛋品</a></li>
-					<li><a href="/list/5/1/1/" class="vegetables">新鲜蔬菜</a></li>
-					<li><a href="/list/6/1/1/" class="ice">速冻食品</a></li>
-				</ul>
-			</div>
-			<ul class="navlist fl">
-				<li><a href="/">首页</a></li>
-				<li class="interval">|</li>
-				<li><a href="">手机生鲜</a></li>
-				<li class="interval">|</li>
-				<li><a href="">抽奖</a></li>
-			</ul>
-		</div>
-	</div>
+    <div class="navbar_con">
+        <div class="navbar clearfix">
+            <div class="subnav_con fl">
+                <h1>全部商品分类</h1>
+                <span></span>
+                <ul class="subnav">
+                    <li><a href="/list/1/1/1/" class="fruit">新鲜水果</a></li>
+                    <li><a href="/list/2/1/1/" class="seafood">海鲜水产</a></li>
+                    <li><a href="/list/3/1/1/" class="meet">猪牛羊肉</a></li>
+                    <li><a href="/list/4/1/1/" class="egg">禽类蛋品</a></li>
+                    <li><a href="/list/5/1/1/" class="vegetables">新鲜蔬菜</a></li>
+                    <li><a href="/list/6/1/1/" class="ice">速冻食品</a></li>
+                </ul>
+            </div>
+            <ul class="navlist fl">
+                <li><a href="/">首页</a></li>
+                <li class="interval">|</li>
+                <li><a href="">手机生鲜</a></li>
+                <li class="interval">|</li>
+                <li><a href="">抽奖</a></li>
+            </ul>
+        </div>
+    </div>
 
-	<div class="breadcrumb">
-		<a href="/">全部分类</a>
-		<span></span>
-		<a href="/list/{{ type.id }}/1/1/">{{ type.ttitle }}</a>
-		<span>></span>
-		<a href="#">商品详情</a>
-	</div>
+    <div class="breadcrumb">
+        <a href="/">全部分类</a>
+        <span></span>
+        <a href="/list/{{ type.id }}/1/1/">{{ type.ttitle }}</a>
+        <span>></span>
+        <a href="#">商品详情</a>
+    </div>
 
-	<div class="goods_detail_con clearfix">
-		<div class="goods_detail_pic fl"><img src="/static/media/{{ good.gpic }}"></div>
+    <div class="goods_detail_con clearfix" >
+        <div class="goods_detail_pic fl"><img src="/static/media/{{ good.gpic }}"></div>
 
-		<div class="goods_detail_list fr">
-			<h3>{{ good.gtitle }}</h3>
-			<p>{{ good.gjianjie }}</p>
-			<div class="prize_bar">
-				<span class="show_pirze">¥<em>{{ good.gprice }}</em></span>
-				<span class="show_unit">单  位：{{ good.gunit }}</span>
+        <div class="goods_detail_list fr">
+            <h3>{{ good.gtitle }}</h3>
+            <p>{{ good.gjianjie }}</p>
+            <div class="prize_bar">
+                <span class="show_pirze">¥<em>{{ good.gprice }}</em></span>
+                <span class="show_unit">单  位：{{ good.gunit }}</span>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <span class="show_kucun">库  存：{{ good.gkucun }}</span>
-			</div>
-			<div class="goods_num clearfix">
-				<div class="num_name fl">数 量：</div>
-				<div class="num_add fl">
-					<input type="text" class="num_show fl" value="1">
-					<a href="javascript:;" class="add fr">+</a>
-					<a href="javascript:;" class="minus fr">-</a>	
-				</div> 
-			</div>
-			<div class="total">总价：<em>{{ good.gprice }}</em></div>
-			<div class="operate_btn">
-				<a href="javascript:;" class="buy_btn">立即购买</a>
-				<a href="javascript:;" class="add_cart" id="add_cart">加入购物车</a>				
-			</div>
-		</div>
-	</div>
+                <span class="show_kucun">库  存：<em>{{ good.gkucun }}</em></span>
+            </div>
+            <div class="goods_num clearfix">
+                <div class="num_name fl">数 量：</div>
+                <div class="num_add fl">
+                    <input type="text" class="num_show fl" value="1">
+                    <a href="javascript:;" class="add fr">+</a>
+                    <a href="javascript:;" class="minus fr">-</a>
+                </div>
+            </div>
+            <div class="total">总价：<em>{{ good.gprice }}</em></div>
+            <div class="operate_btn">
+                <a href="javascript:;" class="buy_btn">立即购买</a>
+                <a href="javascript:;" class="add_cart" id="add_cart">加入购物车</a>
+            </div>
+        </div>
+    </div>
 
-	<div class="main_wrap clearfix">
-		<div class="l_wrap fl clearfix">
-			<div class="new_goods">
-				<h3>新品推荐</h3>
-				<ul>
+    <div class="main_wrap clearfix">
+        <div class="l_wrap fl clearfix">
+            <div class="new_goods">
+                <h3>新品推荐</h3>
+                <ul>
                     {% for t in tuijian %}
-					<li>
-						<a href="/detail/{{ t.gtype_id }}/{{ t.id }}/"><img src="/static/media/{{ t.gpic }}"></a>
-						<h4><a href="/detail/{{ t.gtype_id }}/{{ t.id }}/">{{ t.gtitle }}">{{ t.gtitle }}</a></h4>
-						<div class="prize">￥{{ t.gprice }}</div>
-					</li>
+                        <li>
+                            <a href="/detail/{{ t.gtype_id }}/{{ t.id }}/"><img src="/static/media/{{ t.gpic }}"></a>
+                            <h4><a href="/detail/{{ t.gtype_id }}/{{ t.id }}/">{{ t.gtitle }}">{{ t.gtitle }}</a></h4>
+                            <div class="prize">￥{{ t.gprice }}</div>
+                        </li>
                     {% endfor %}
 
-				</ul>
-			</div>
-		</div>
+                </ul>
+            </div>
+        </div>
 
-		<div class="r_wrap fr clearfix">
-			<ul class="detail_tab clearfix">
-				<li class="active">商品介绍</li>
-				<li>评论</li>
-			</ul>
+        <div class="r_wrap fr clearfix">
+            <ul class="detail_tab clearfix">
+                <li class="active">商品介绍</li>
+                <li>评论</li>
+            </ul>
 
-			<div class="tab_content">
-				<dl>
-					<dt>商品详情：</dt>
-					{{ good.gcontent|safe }}
-				</dl>
-			</div>
+            <div class="tab_content">
+                <dl>
+                    <dt>商品详情：</dt>
+                    {{ good.gcontent|safe }}
+                </dl>
+            </div>
 
-		</div>
-	</div>
+        </div>
+    </div>
 
 {% endblock body %}
 

@@ -23,9 +23,9 @@ SECRET_KEY = '&5_1t(&@ksrzoo!1_r1jrb)jfrbwx)98p3u#j!jl3fq9z$wx#1'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -40,6 +40,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'tt_user',
     'tt_goods',
+    'tt_cart',
+    'tt_order',
     'tinymce',
     'haystack',
     'djcelery',
@@ -107,13 +109,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
-
+STATIC_ROOT='/var/www/ttsx/static/'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
 # Media files
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
+MEDIA_ROOT = os.path.join(STATIC_ROOT, 'media')
 
 TINYMCE_DEFAULT_CONFIG = {
     'theme': 'advanced',
